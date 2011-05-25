@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'activerecord-arrays'
-  s.version = '0.0.1'
+  s.version = '0.0.2'
 
   s.summary = 'Arrays for ActiveRecord'
   s.description = 'Arrays for ActiveRecord'

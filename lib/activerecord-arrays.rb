@@ -5,7 +5,9 @@ module ActiveRecord
         config.before_initialize do
           if defined? ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
             require 'activerecord/arrays/postgresql_adapter'
+            require 'activerecord/arrays/base'
             require 'activerecord/arrays/postgresql_column'
+            ActiveRecord::Base.send :extend, Base
             ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.send :include, PostgreSQLAdapter
             ActiveRecord::ConnectionAdapters::PostgreSQLColumn.send :include, PostgreSQLColumn
           end

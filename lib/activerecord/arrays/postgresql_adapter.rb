@@ -8,9 +8,13 @@ module ActiveRecord::Arrays::PostgreSQLAdapter
     end
   end
 
+  def stringify_array a
+    '{"' + a.map { |s| quote_string(s.to_s).gsub('"', '\\"') }.join('","') + '"}'
+  end
+
   def quote_with_arrays value, column=nil
     if value.kind_of?(Array) && column && column.array?
-      "E'{\"" + value.map { |s| quote_string(s.to_s).gsub('"', '\\"') }.join('","') + "\"}'"
+      "E'#{stringify_array(value)}'"
     else
       quote_without_arrays value, column
     end
