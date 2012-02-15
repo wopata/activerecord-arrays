@@ -21,12 +21,12 @@ module ActiveRecord::Arrays::PostgreSQLAdapter
   end
 
   def native_database_types_with_arrays
-    native_database_types_without_arrays.merge({
-      :string_array => 'character varying(255)[]',
-      :integer_array => 'integer[]',
-      :float_array => 'float[]',
-      :decimal_array => 'decimal[]'
-    })
+    sup = native_database_types_without_arrays
+    sup.merge({
+      :string_array => { :name => "character varying(#{sup[:string][:limit]})[]" },
+      :integer_array => { :name => 'integer[]' },
+      :float_array => { :name => 'float[]' },
+      :decimal_array => { :name => 'decimal[]' }})
   end
 
   def type_to_sql_with_arrays type, limit=nil, precision=nil, scale=nil

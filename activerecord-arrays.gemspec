@@ -1,13 +1,13 @@
 Gem::Specification.new do |s|
   s.name = 'activerecord-arrays'
-  s.version = '0.0.3'
+  s.version = '0.1.0'
 
   s.summary = 'Arrays for ActiveRecord'
   s.description = 'Arrays for ActiveRecord'
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.3.5")
   s.authors = ['Roland Venesz']
-  s.date = '2011-04-22'
+  s.date = '2012-02-15'
   s.files = %w(README.md LICENSE) + Dir['lib/**/*.rb']
   s.require_paths = %w(lib)
 
