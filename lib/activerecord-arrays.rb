@@ -7,9 +7,11 @@ module ActiveRecord
             require 'activerecord/arrays/postgresql_adapter'
             require 'activerecord/arrays/base'
             require 'activerecord/arrays/postgresql_column'
+            require 'activerecord/arrays/table_definition'
             ActiveRecord::Base.send :extend, Base
             ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.send :include, PostgreSQLAdapter
             ActiveRecord::ConnectionAdapters::PostgreSQLColumn.send :include, PostgreSQLColumn
+            ActiveRecord::ConnectionAdapters::TableDefinition.send :include, TableDefinition
           end
         end
       end
