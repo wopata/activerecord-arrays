@@ -2,8 +2,11 @@ module ActiveRecord::Arrays::PostgreSQLAdapter
   def self.included other
     # return if other.public_method_defined? :quote_with_arrays
     other.class_eval do
-      for method in %w(type_cast quote native_database_types type_to_sql) do
+      for method in %w(quote native_database_types type_to_sql) do
         alias_method_chain method, :arrays
+      end
+      if instance_methods.include? :type_cast
+        alias_method_chain :type_cast, :arrays
       end
     end
   end
