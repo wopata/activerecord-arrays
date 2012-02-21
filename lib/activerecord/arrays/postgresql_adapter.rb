@@ -2,7 +2,7 @@ module ActiveRecord::Arrays::PostgreSQLAdapter
   def self.included other
     # return if other.public_method_defined? :quote_with_arrays
     other.class_eval do
-      for method in %w(quote native_database_types type_to_sql) do
+      for method in %w(type_cast quote native_database_types type_to_sql) do
         alias_method_chain method, :arrays
       end
     end
@@ -10,6 +10,14 @@ module ActiveRecord::Arrays::PostgreSQLAdapter
 
   def stringify_array a
     '{"' + a.map { |s| quote_string(s.to_s).gsub('"', '\\"') }.join('","') + '"}'
+  end
+
+  def type_cast_with_arrays val, col
+    if col && col.array?
+      stringify_array val
+    else
+      type_cast_without_arrays val, col
+    end
   end
 
   def quote_with_arrays value, column=nil
