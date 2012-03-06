@@ -18,6 +18,9 @@ module ActiveRecord
     end
 
     def self.convert_array str
+      return str if str.kind_of? Array
+      return [] if str == '{}'
+
       array_nesting = 0  # nesting level of the array
       in_string = false  # currently inside a quoted string ?
       escaped = false    # if the character is escaped

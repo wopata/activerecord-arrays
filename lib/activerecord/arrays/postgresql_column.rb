@@ -27,9 +27,7 @@ module ActiveRecord::Arrays::PostgreSQLColumn
   def type_cast_with_arrays value
     if array?
       return value if value.nil?
-      unless value.kind_of? Array
-        value = ActiveRecord::Arrays.convert_array(value)
-      end
+      value = ActiveRecord::Arrays.convert_array(value)
       inner = self.dup
       inner.instance_variable_set :@type, self.type.to_s.sub(/_array\Z/, '').intern
       value.map { |i| inner.type_cast_without_arrays i }
@@ -43,9 +41,7 @@ module ActiveRecord::Arrays::PostgreSQLColumn
       inner = self.dup
       inner.instance_variable_set :@type, self.type.to_s.sub(/_array\Z/, '').intern
       "(return nil if #{var_name}.nil?
-       unless #{var_name}.kind_of? Array
-         #{var_name} = ActiveRecord::Arrays.convert_array(#{var_name})
-       end
+       #{var_name} = ActiveRecord::Arrays.convert_array(#{var_name})
        #{var_name}.map { |i| #{inner.type_cast_code_without_arrays('i') || 'i'} })"
     else
       type_cast_code_without_arrays var_name

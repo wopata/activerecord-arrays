@@ -12,11 +12,14 @@ module ActiveRecord::Arrays::PostgreSQLAdapter
   end
 
   def stringify_array a
-    '{"' + a.map { |s| quote_string(s.to_s).gsub('"', '\\"') }.join('","') + '"}'
+    puts a.inspect
+    a.any? ?
+    ('{"' + a.map { |s| quote_string(s.to_s).gsub('"', '\\"') }.join('","') + '"}') :
+    '{}'
   end
 
   def type_cast_with_arrays val, col
-    if col && col.array?
+    if val && col && col.array?
       stringify_array val
     else
       type_cast_without_arrays val, col
