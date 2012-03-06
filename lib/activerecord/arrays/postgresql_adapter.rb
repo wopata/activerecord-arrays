@@ -12,7 +12,6 @@ module ActiveRecord::Arrays::PostgreSQLAdapter
   end
 
   def stringify_array a
-    puts a.inspect
     a.any? ?
     ('{"' + a.map { |s| quote_string(s.to_s).gsub('"', '\\"') }.join('","') + '"}') :
     '{}'
