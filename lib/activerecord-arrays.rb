@@ -2,7 +2,7 @@ module ActiveRecord
   module Arrays
     if defined? Rails
       class Railtie < Rails::Railtie
-        config.before_initialize do
+        initializer 'activerecord-arrays.insert' do
           if defined? ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
             require 'activerecord/arrays/postgresql_adapter'
             require 'activerecord/arrays/base'
